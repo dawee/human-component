@@ -9,4 +9,5 @@ Paper.width(100)
     .li
       .h2.text('Joe Citizen').inline
       .a.href('mailto:joe@example.com').text('joe@example.com').inline
+  .createElement()
 ```
