@@ -1,13 +1,13 @@
 ```js
 Paper.width(100)
-  .h1.text('Contacts').inline
+  .h1.text('Contacts')._
   .ul
     .li
-      .h2.text('James Nelson').inline
-      .a.href('mailto:james@jamesknelson.com').text('james@jamesknelson.com').inline
+      .h2.text('James Nelson')._
+      .a.href('mailto:james@jamesknelson.com').text('james@jamesknelson.com')._
     ._
     .li
-      .h2.text('Joe Citizen').inline
-      .a.href('mailto:joe@example.com').text('joe@example.com').inline
+      .h2.text('Joe Citizen')._
+      .a.href('mailto:joe@example.com').text('joe@example.com')._
   .createElement()
 ```
