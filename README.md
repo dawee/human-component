@@ -20,13 +20,12 @@ class Top extends React.Component {
 ## Render tree
 
 ```js
-const React = require('react');
-const Component = require('human-component');
+const Human = require('human-component');
 
-const div = Component.from('div');
-const span = Component.from('span');
+const div = Human.from('div');
+const span = Human.from('span');
 
-class Top extends React.Component {
+class Top extends Human.Component {
   render() {
     return (
       div.props({style: {textAlign: 'center'}}).tree(
