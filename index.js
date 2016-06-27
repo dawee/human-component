@@ -27,11 +27,6 @@ class ElementGenerator {
     return this.enabled ? React.createElement(this.source, props, content) : null;
   }
 
-  onlyIf(condition) {
-    this.enabled = condition;
-    return this;
-  }
-
   static get(source) {
     if (! (source in instances)) instances[source] = new ElementGenerator(source);
 

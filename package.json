@@ -16,6 +16,9 @@
     "readable",
     "human"
   ],
+  "engines": {
+    "node": ">=6.0.0"
+  },
   "author": "David Corticchiato",
   "license": "MIT",
   "bugs": {
