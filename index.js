@@ -4,49 +4,43 @@ const React = require('react');
 const instances = {};
 
 
-class SourceWrapper {
-
+class ElementGenerator {
   constructor(source) {
     this.source = source;
-    this.props = {};
+    this.enabled = true;
   }
 
-  set(props) {
-    this.props = Object.assign(this.props, props);
+  el(props, ...children) {
+    let content = [];
+
+    for (const child of children) {
+      if (Array.isArray(child)) {
+        content = content.concat(child);
+      } else if (child !== null) {
+        content.push(child);
+      }
+    }
+
+    if (Array.isArray(content) && content.length === 0) content = null;
+    if (Array.isArray(content) && content.length === 1) content = content[0];
+
+    return this.enabled ? React.createElement(this.source, props, content) : null;
+  }
+
+  onlyIf(condition) {
+    this.enabled = condition;
     return this;
   }
 
-  el(...children) {
-    return React.createElement(this.source, this.props, children);
-  }
-
   static get(source) {
-    if (! (source in instances)) instances[source] = new SourceWrapper(source);
+    if (! (source in instances)) instances[source] = new ElementGenerator(source);
 
     return instances[source];
   }
+
 }
 
-
-class Component {
-
-  static set(props) {
-    return SourceWrapper.get(this).set(props);
-  }
-
-  static el(...children) {
-    const wrapper = SourceWrapper.get(this);
-
-    return wrapper.el.apply(wrapper, children);
-  }
-}
-
-
-exports.Component = Component;
-
-
-exports.from = (source) => SourceWrapper.get(source);
-
+exports.from = (source) => ElementGenerator.get(source);
 
 exports.require = (module, id, sub) => {
   let imported = module.require(id);
@@ -55,5 +49,5 @@ exports.require = (module, id, sub) => {
   if (!!imported && !autoSub && 'default' in imported) autoSub = 'default';
   if (!!autoSub) imported = imported[autoSub];
 
-  return SourceWrapper.get(imported);
+  return ElementGenerator.get(imported);
 };
