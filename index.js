@@ -24,6 +24,10 @@ class ElementGenerator {
     if (Array.isArray(content) && content.length === 0) content = null;
     if (Array.isArray(content) && content.length === 1) content = content[0];
 
+    if (typeof this.source.getKey === 'function') {
+      props = Object.assign({key: this.source.getKey(props)}, props);
+    }
+
     return this.enabled ? React.createElement(this.source, props, content) : null;
   }
 
