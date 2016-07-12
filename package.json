@@ -1,6 +1,6 @@
 {
   "name": "human-component",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "description": "A human readable version of React Components",
   "main": "index.js",
   "scripts": {
@@ -35,7 +35,7 @@
     "mocha": "2.5.3",
     "react-dom": "15.1.0"
   },
-  "dependencies": {
-    "react": "15.1.0"
+  "peerDependencies": {
+    "react": "^15.0.0"
   }
 }
