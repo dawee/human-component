@@ -31,15 +31,15 @@ class ElementGenerator {
     return this.enabled ? React.createElement(this.source, props, content) : null;
   }
 
-  static get(source) {
-    if (! (source in instances)) instances[source] = new ElementGenerator(source);
+  static get(source, id) {
+    if (! (id in instances)) instances[id] = new ElementGenerator(source);
 
-    return instances[source];
+    return instances[id];
   }
 
 }
 
-exports.from = (source) => ElementGenerator.get(source);
+exports.from = (source) => ElementGenerator.get(source, source);
 
 exports.require = (module, id, sub) => {
   let imported = module.require(id);
@@ -48,5 +48,6 @@ exports.require = (module, id, sub) => {
   if (!!imported && !autoSub && 'default' in imported) autoSub = 'default';
   if (!!autoSub) imported = imported[autoSub];
 
-  return ElementGenerator.get(imported);
+  return ElementGenerator.get(imported, `${id}-${autoSub || 'default'}`);
 };
+
